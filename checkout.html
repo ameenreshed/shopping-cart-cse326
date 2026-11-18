@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#18181b">
+<title>Checkout – Shopping Cart</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script>try{var t=localStorage.getItem('kk_theme');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){}</script>
+</head>
+<body data-root="">
+<div id="app">
+<header class="mh mob">
+  <button class="ib" onclick="back()" aria-label="Back" data-icon="back:17"></button>
+  <div class="mt">Checkout</div>
+  <button class="ib" onclick="toggleTheme()" aria-label="Theme" data-icon="moon:17"></button>
+</header>
+<main class="wrap mp" id="page">
+  <div class="steps"><span class="done">1 Cart</span><span class="on">2 Checkout</span><span>3 Confirmation</span></div>
+  <h1 style="margin-bottom:18px">Checkout</h1>
+  <form id="cf" class="two" novalidate>
+    <div class="card">
+      <h3 style="margin-bottom:14px">Shipping details</h3>
+      <div class="f"><label for="nm">Full name</label><input id="nm" type="text"><div class="err" id="e_nm"></div></div>
+      <div class="g2">
+        <div class="f"><label for="em">Email</label><input id="em" type="email"><div class="err" id="e_em"></div></div>
+        <div class="f"><label for="ph">Mobile (10 digits)</label><input id="ph" type="tel" inputmode="numeric" maxlength="10"><div class="err" id="e_ph"></div></div>
+      </div>
+      <div class="f"><label for="ad">Delivery address</label><input id="ad" type="text" placeholder="House no, street, city"><div class="err" id="e_ad"></div></div>
+      <div class="f"><label for="pn">PIN code</label><input id="pn" type="text" inputmode="numeric" maxlength="6"><div class="err" id="e_pn"></div></div>
+      <h3 style="margin:20px 0 14px">Payment</h3>
+      <div class="f"><label for="cn">Card number</label><input id="cn" type="text" inputmode="numeric" placeholder="4242 4242 4242 4242" oninput="fmtCard(this)"><div class="err" id="e_cn"></div></div>
+      <div class="g2">
+        <div class="f"><label for="ex">Expiry (MM/YY)</label><input id="ex" type="text" placeholder="MM/YY" oninput="fmtExp(this)"><div class="err" id="e_ex"></div></div>
+        <div class="f"><label for="cv">CVV</label><input id="cv" type="password" inputmode="numeric" maxlength="3"><div class="err" id="e_cv"></div></div>
+      </div>
+      <p class="mu sm">Demo payment only. Never enter a real card number. Test card: 4242 4242 4242 4242.</p>
+    </div>
+    <aside class="card sum">
+      <h3 style="margin-bottom:10px">Your order</h3>
+      <div id="co-items"></div>
+      <div class="r"><span class="mu">Subtotal</span><span id="co-sub"></span></div>
+      <div class="r" id="co-disc-row" hidden><span class="mu">Discount</span><span class="okc" id="co-disc"></span></div>
+      <div class="r"><span class="mu">Shipping</span><span id="co-ship"></span></div>
+      <div class="r"><span class="mu">GST</span><span id="co-gst"></span></div>
+      <div class="r t"><span>Total</span><span id="co-total"></span></div>
+      <button class="btn b dsk" style="margin-top:14px" type="submit"><span data-icon="lock:17"></span>Place order · <span id="co-total-btn"></span></button>
+      <a class="btn o b dsk" style="margin-top:8px" href="cart.html">Back to cart</a>
+    </aside>
+  </form>
+</main>
+</div>
+<script src="js/core.js"></script>
+<script src="js/pages/checkout.js"></script>
+</body>
+</html>
