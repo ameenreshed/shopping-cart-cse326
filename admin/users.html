@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#18181b">
+<title>Admin Customers – Shopping Cart</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../css/style.css">
+<script>try{var t=localStorage.getItem('kk_theme');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){}</script>
+</head>
+<body data-root="../">
+<div id="app">
+<header class="mh mob">
+  <span class="lg" data-icon="shield:16"></span>
+  <div class="mt">Users</div>
+  <a class="ib" href="../index.html" aria-label="View store" data-icon="home:17"></a>
+  <button class="ib" onclick="toggleTheme()" aria-label="Theme" data-icon="moon:17"></button>
+</header>
+<div class="abar mob" data-admin-actions></div>
+<main class="mp mob page" id="page-mobile"><p class="mu">Loading…</p></main>
+<nav class="tab mob">
+  <a href="dashboard.html"><span data-icon="dash:20"></span><span>Dashboard</span></a>
+  <a href="products.html"><span data-icon="bag:20"></span><span>Products</span></a>
+  <a href="orders.html"><span data-icon="package:20"></span><span>Orders</span></a>
+  <a href="users.html"><span data-icon="users:20"></span><span>Users</span></a>
+  <a href="#" onclick="logout();return false"><span data-icon="logout:20"></span><span>Logout</span></a>
+</nav>
+<div class="adm dsk">
+  <aside class="sb">
+    <a class="logo" href="../index.html"><span class="lg" data-icon="shield:17"></span>Admin</a>
+    <a href="dashboard.html" data-icon="dash:18">Dashboard</a>
+    <a href="products.html" data-icon="bag:18">Products</a>
+    <a href="orders.html" data-icon="package:18">Orders</a>
+    <a href="users.html" data-icon="users:18">Customers</a>
+    <div class="sbf">
+      <a href="../index.html" data-icon="home:18">View store</a>
+      <a href="#" onclick="toggleTheme();return false" data-icon="moon:18">Theme</a>
+      <a href="#" onclick="logout();return false" data-icon="logout:18">Log out</a>
+    </div>
+  </aside>
+  <section class="am">
+    <div class="row sp ah">
+      <div><h1>Admin Customers</h1><div class="mu sm">Signed in as <span data-username></span></div></div>
+      <div class="row" data-admin-actions></div>
+    </div>
+    <div class="page" id="page"><p class="mu">Loading…</p></div>
+  </section>
+</div>
+</div>
+<script src="../js/core.js"></script>
+<script src="../js/pages/admin/users.js"></script>
+</body>
+</html>
