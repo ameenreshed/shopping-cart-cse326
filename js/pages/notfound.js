@@ -1,0 +1,1 @@
+(function(){shell('',{back:true,title:'Not found'});page(`<div class="empty">${ic('alert',52)}<h2>404 – Page not found</h2><p>The page you’re looking for doesn’t exist.</p><a class="btn" href="index.html">Back to shop</a></div>`)})();
