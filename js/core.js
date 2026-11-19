@@ -1,10 +1,9 @@
 /* ==========================================================================
-   SHOPPING CART — UNIFIED CORE (Option B)
+    — UNIFIED CORE
    ========================================================================== */
 
-/* ============ 1. CONFIG + THEME + FA LOADER ============ */
 const CONFIG = {
-  brand:'Shopping Cart', currency:'₹', locale:'en-IN',
+  brand:'', currency:'₹', locale:'en-IN',
   gstPct:18, freeShipOver:999, shipFee:49,
   coupons:{ SAVE10:10, WELCOME5:5 },
   mobileMax:768, useFA:true,
@@ -27,12 +26,12 @@ MQ.addEventListener('change', () => location.reload());
   }
 })();
 
-/* ============ 2. DATABASE + SERVICES ============ */
+/* ============ DATABASE + SERVICES ============ */
 const KEY = 'kk_store_v3';
 const today = () => new Date().toISOString().slice(0, 10);
 
 function seed() {
-  // [id, name, cat, price, stock, desc] — no emoji
+  // Images live in assets/img/ as p{id}.webp and p{id}a.webp
   const P = [
     [1,'Wireless Headphones','Electronics',2499,12,'Over-ear Bluetooth headphones with 30-hour battery.'],
     [2,'Smart Watch','Electronics',3999,8,'Fitness tracking, heart-rate and notifications.'],
@@ -54,7 +53,7 @@ function seed() {
     products: P.map(a => ({
       id:a[0], name:a[1], cat:a[2], price:a[3], stock:a[4],
       desc:a[5],
-      images:['assets/img/p'+a[0]+'.svg','assets/img/p'+a[0]+'b.svg'],
+      images:['assets/img/p'+a[0]+'.webp','assets/img/p'+a[0]+'a.webp'],
       mrp: Math.round(a[3]*(1.15+(a[0]%4)*.08)/10)*10
     })),
     reviews: [
@@ -64,12 +63,12 @@ function seed() {
     orders: [
       { id:101, uid:2, user:'Demo Customer', date:'20/10/2026, 4:12:09 pm', status:'Delivered', ship,
         total:2949, t:{ sub:2499, disc:0, ship:0, gst:450, total:2949 },
-        items:[{ pid:1, name:'Wireless Headphones', img:'assets/img/p1.svg', price:2499, q:1 }] },
+        items:[{ pid:1, name:'Wireless Headphones', img:'assets/img/p1.webp', price:2499, q:1 }] },
       { id:102, uid:2, user:'Demo Customer', date:'02/11/2026, 11:30:41 am', status:'Shipped', ship,
         total:1943, t:{ sub:1647, disc:0, ship:0, gst:296, total:1943 },
         items:[
-          { pid:5, name:'Coffee Mug Set', img:'assets/img/p5.svg', price:599, q:2 },
-          { pid:7, name:'JavaScript Handbook', img:'assets/img/p7.svg', price:449, q:1 }
+          { pid:5, name:'Coffee Mug Set', img:'assets/img/p5.webp', price:599, q:2 },
+          { pid:7, name:'JavaScript Handbook', img:'assets/img/p7.webp', price:449, q:1 }
         ] }
     ],
     cart:{}, wish:[], coupon:'', session:null, seq:110
@@ -197,7 +196,7 @@ const Wish = {
   }
 };
 
-/* ============ 3. ICONS ============ */
+/* ============ ICONS ============ */
 const IC = {
   home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
   bag:'<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
@@ -246,7 +245,7 @@ const ic = (n, s = 18) => {
   return `<span class="ico" style="font-size:${s}px;width:${s}px;height:${s}px"><i class="fa-${f[0]} fa-${f[1]}"></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg></span>`;
 };
 
-/* ============ 4. UTILITIES ============ */
+/* ============ UTILITIES ============ */
 const R = document.body.dataset.root || '';
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
@@ -257,9 +256,7 @@ const stars = n => {
 };
 const go = u => { location.href = R + u; };
 const page = h => {
-  // Admin pages have dual containers (#page-mobile for mobile + #page for desktop).
-  // Write only into the container matching the current viewport so a single
-  // #q / #tb / #imgs element exists in the live DOM.
+  // Admin pages have dual containers (#page-mobile + #page). Only fill the one for the current viewport.
   const dual = !!document.getElementById('page-mobile');
   document.querySelectorAll('#page, .page').forEach(el => {
     if (dual) {
@@ -385,11 +382,15 @@ function togglePw(id) {
 }
 const src = s => /^(data:|https?:)/.test(s) ? s : R + s;
 
-/* Product image helper — photo only, else alt text (product name). No emoji. */
+/* Product image — photo from assets/img/ (or URL), else product name as alt text.
+   Inline styles keep the fallback visible behind the photo; if the file 404s
+   the <img> removes itself and the fallback text shows. No CSS changes needed. */
 const pimg = (p, i = 0) => {
+  const name = esc(p.name || '');
+  const alt = `<span style="position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px;font-size:10px;line-height:1.2;color:var(--mu);overflow:hidden;word-break:break-word">${name}</span>`;
   const s = p.images && p.images[i];
-  if (s) return `<img src="${esc(src(s))}" alt="${esc(p.name)}">`;
-  return `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:10px;line-height:1.15;color:var(--mu);text-align:center;padding:3px;overflow:hidden;word-break:break-word">${esc(p.name || '')}</span>`;
+  if (!s) return alt;
+  return alt + `<img src="${esc(src(s))}" alt="${name}" loading="lazy" style="z-index:1" onerror="this.remove()">`;
 };
 
 const priceHtml = p => {
@@ -402,23 +403,6 @@ function heart(id, b) {
   toast(on ? 'Added to wishlist' : 'Removed from wishlist');
   syncBadge();
 }
-function readImg(f) {
-  return new Promise(res => {
-    const r = new FileReader();
-    r.onload = () => {
-      const i = new Image();
-      i.onload = () => {
-        const k = Math.min(1, 600 / Math.max(i.width, i.height));
-        const c = document.createElement('canvas');
-        c.width = Math.round(i.width * k); c.height = Math.round(i.height * k);
-        c.getContext('2d').drawImage(i, 0, 0, c.width, c.height);
-        res(c.toDataURL('image/jpeg', .72));
-      };
-      i.onerror = () => res(null); i.src = r.result;
-    };
-    r.onerror = () => res(null); r.readAsDataURL(f);
-  });
-}
 function back() { document.referrer && history.length > 1 ? history.back() : go('index.html'); }
 function cardify() {
   document.querySelectorAll('.tw table').forEach(t => {
@@ -427,7 +411,7 @@ function cardify() {
   });
 }
 
-/* ============ 5. COMPONENTS ============ */
+/* ============ COMPONENTS ============ */
 const pcard = p => {
   const off = p.mrp > p.price ? Math.round((1 - p.price / p.mrp) * 100) : 0;
   return `<article class="card pc"><div class="ph"><a href="${R}product.html?id=${p.id}" class="th">${pimg(p)}</a>${off ? `<span class="dc">${off}% OFF</span>` : ''}${!p.stock ? '<span class="so">Sold out</span>' : ''}<button class="wh ${Wish.has(p.id) ? 'on' : ''}" onclick="heart(${p.id},this)" aria-label="Wishlist">${ic('heart', 17)}</button></div>
@@ -436,7 +420,7 @@ const pcard = p => {
 };
 const hcard = p => `<a class="hc card" href="${R}product.html?id=${p.id}"><div class="th">${pimg(p)}</div><div class="sm" style="margin:8px 0 2px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(p.name)}</div><div class="pr sm">${priceHtml(p)}</div></a>`;
 
-/* ============ 6. LAYOUT HYDRATION ============ */
+/* ============ LAYOUT HYDRATION ============ */
 function shell(active, o = {}) {
   setActive(active);
   hydrateIcons();

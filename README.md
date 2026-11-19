@@ -1,42 +1,32 @@
-# Shopping Cart: Online Shopping Cart with Product Reviews
-CSE326 Internet Programming, Section K4P26HB, Group 01.
-Built with HTML, CSS and JavaScript only (no framework, no backend). Data is saved in the browser (localStorage).
+#  - Online  with Product Reviews
+CSE326 Internet Programming | Section K4P26HB | Group 01
 
 ## Run
-Open `index.html` in a browser, or use the VS Code "Live Server" extension.
+Open `index.html` (no build step). Works from the file system, GitHub Pages or Vercel.
 
 ## Demo accounts
-| Role | Email | Password |
-|---|---|---|
-| Admin | admin@shop.com | admin123 |
-| Customer | user@shop.com | user123 |
+- Admin: admin@shop.com / admin123 | Customer: user@shop.com / user123
+- Coupons: SAVE10 (10%), WELCOME5 (5%) | Test card: 4242 4242 4242 4242
 
-Coupons: `SAVE10` (10%), `WELCOME5` (5%). Test card: `4242 4242 4242 4242`, expiry `12/30`, CVV any 3 digits.
+## Separate responsive views
+- css/base.css      shared design system (tokens, light/dark, components)
+- css/desktop.css   laptop/desktop (>=769px): header search, category bar, filter sidebar, wide layouts
+- css/tablet.css    tablet and below (<=1024px): collapsed grids and sidebars
+- css/mobile.css    mobile app view (<=768px): app bar, bottom tab bar, bottom sheets, sticky action bars, card-style tables
+js/core/layout.js renders a different shell for mobile (app bar + tab bar) and desktop (header + footer); the page reloads when crossing the breakpoint.
 
-## Features
-- Catalogue with search, category, price and rating filters, sorting, wishlist
-- Product page with image gallery (zoom, swipe), stock status and 5-star reviews (one per customer)
-- Cart with quantity limits by stock, coupons, GST and shipping rules
-- Checkout with validation (name, email, phone, address, PIN, card with Luhn check, expiry, CVV)
-- My orders with a progress bar; account page
-- Role based access: customer and admin
-- Admin: dashboard, product CRUD with photo upload, order status, customers
-- Light and dark theme, separate desktop and mobile layouts
+## Centralized
+- js/config.js        brand, currency, GST, shipping, coupons, breakpoint, Font Awesome toggle, theme
+- js/core/icons.js    every icon: Font Awesome class + inline SVG fallback (set CONFIG.useFA=false for SVG only)
+- js/core/db.js       localStorage database + Auth, Prod, Cart, Rev, Ord, Wish services
+- js/core/utils.js    helpers, validators, modal, toast, guards, image utils
+- js/core/components.js product cards;  js/core/layout.js shells
+- js/pages/*.js       one script per page (admin pages in js/pages/admin/)
 
-## Project structure
-```
-index.html, product.html, wishlist.html, cart.html, checkout.html,
-orders.html, account.html, login.html, register.html, 404.html
-admin/        dashboard.html, products.html, orders.html, users.html
-css/style.css One stylesheet (tokens, components, icons, desktop, tablet, mobile)
-js/core.js    Shared engine: config, database, services, icons, helpers, layout
-js/pages/     One script per page (index.js, product.js, cart.js, checkout.js, ...)
-js/pages/admin/  dashboard.js, products.js, orders.js, users.js
-assets/img/   Product pictures (p1.svg, p1b.svg, ...)
-```
+## Pages
+Store: index, product, wishlist, cart, checkout, orders, account, login, register, 404
+Admin (admin/): dashboard, products (CRUD + images), orders, users
+Images: seed SVG art in assets/img/; admins can upload photos or paste URLs.
 
-## Deploy
-Push to GitHub, then Settings > Pages > Deploy from branch `main` / root.
-
-## Limitations
-Passwords are stored as plain text and role checks run in the browser (demo project). Payment is a mock. Data exists only in one browser.
+## Notes
+Data is stored in localStorage. Passwords are plain text for demo only. Payment is a mock.
