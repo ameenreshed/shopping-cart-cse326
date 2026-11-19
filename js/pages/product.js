@@ -5,7 +5,7 @@
     page(`<div class="empty">${ic('alert',40)}<h2>Product not found</h2><a class="btn" href="index.html">Back to shop</a></div>`);
     return;
   }
-  document.title = p.name + ' – ';
+  document.title = p.name + ' – SAAHFY';
 
   let qty = 1, star = 0, gi = 0;
   const imgs = p.images || [];

@@ -1,9 +1,9 @@
 /* ==========================================================================
-    — UNIFIED CORE
+   SAAHFY — UNIFIED CORE
    ========================================================================== */
 
 const CONFIG = {
-  brand:'', currency:'₹', locale:'en-IN',
+  brand:'SAAHFY', currency:'₹', locale:'en-IN',
   gstPct:18, freeShipOver:999, shipFee:49,
   coupons:{ SAVE10:10, WELCOME5:5 },
   mobileMax:768, useFA:true,
