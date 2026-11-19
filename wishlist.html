@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#18181b">
+<title>Wishlist – Shopping Cart</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script>try{var t=localStorage.getItem('kk_theme');document.documentElement.dataset.theme=t||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){}</script>
+</head>
+<body data-root="">
+<div id="app">
+<header class="hd dsk">
+  <div class="wrap hdr">
+    <a class="logo" href="index.html"><span class="lg" data-icon="bag:18"></span>Shopping Cart</a>
+    <form class="hs" action="index.html"><span data-icon="search:17"></span><input name="q" placeholder="Search for products, categories…" aria-label="Search" autocomplete="off"></form>
+    <nav class="nav hn">
+      <a href="index.html" data-icon="home:17">Home</a>
+      <a href="orders.html" data-hide-role="admin" data-icon="package:17">Orders</a>
+      <a href="admin/dashboard.html" data-need="admin" hidden data-icon="shield:17">Admin</a>
+    </nav>
+    <div class="row hr">
+      <button class="ib" onclick="toggleTheme()" aria-label="Theme" data-icon="moon:18"></button>
+      <a class="ib" href="wishlist.html" aria-label="Wishlist"><span data-icon="heart:18"></span><span class="bdg wb" hidden></span></a>
+      <a class="ib" href="cart.html" aria-label="Cart"><span data-icon="cart:19"></span><span class="bdg cb" hidden></span></a>
+      <a class="auth-out btn o s" href="login.html">Log in</a>
+      <a class="auth-out btn s" href="register.html">Sign up</a>
+      <a class="auth-in acc" href="account.html" hidden><span class="av" data-avatar></span><span class="hn" data-username></span></a>
+    </div>
+  </div>
+</header>
+<header class="mh mob">
+  <span class="lg" data-icon="bag:16"></span>
+  <div class="mt">Wishlist</div>
+  <button class="ib" onclick="toggleTheme()" aria-label="Theme" data-icon="moon:17"></button>
+  <a class="ib" href="cart.html" aria-label="Cart"><span data-icon="cart:18"></span><span class="bdg cb" hidden></span></a>
+</header>
+<main class="wrap mp" id="page"><p class="mu">Loading wishlist…</p></main>
+<footer class="ft dsk">
+  <div class="wrap fg">
+    <div><a class="logo" href="index.html"><span class="lg" data-icon="bag:18"></span>Shopping Cart</a><p class="mu sm">Modern shopping with honest customer reviews.</p></div>
+    <div><b>Shop</b><a href="index.html">All products</a><a href="wishlist.html">Wishlist</a><a href="cart.html">Cart</a></div>
+    <div><b>Account</b><a href="account.html">My account</a><a href="login.html">Log in</a><a href="register.html">Sign up</a><a href="orders.html">My orders</a></div>
+  </div>
+  <div class="wrap sm mu" style="padding-top:0">© 2026 Shopping Cart · CSE326 Internet Programming · Group 01</div>
+</footer>
+<nav class="tab mob">
+  <a href="index.html"><span data-icon="home:20"></span><span>Home</span></a>
+  <a href="wishlist.html"><span data-icon="heart:20"></span><span>Wishlist</span><span class="bdg wb" hidden></span></a>
+  <a href="cart.html"><span data-icon="cart:20"></span><span>Cart</span><span class="bdg cb" hidden></span></a>
+  <a href="orders.html" data-hide-role="admin"><span data-icon="package:20"></span><span>Orders</span></a>
+  <a href="admin/dashboard.html" data-need="admin" hidden><span data-icon="shield:20"></span><span>Admin</span></a>
+  <a href="account.html"><span data-icon="user:20"></span><span>Account</span></a>
+</nav>
+</div>
+<script src="js/core.js"></script>
+<script src="js/pages/wishlist.js"></script>
+</body>
+</html>
